@@ -1,6 +1,8 @@
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const express = require("express")
+const { verificationOfToken } = require('./auth/authentication')
+const logOutRoute = require('./routes/logout')
 const profileRoute = require('./routes/profile')
 const registrationRouter = require('./routes/registration')
 const logInRoutes = require('./routes/signin')
@@ -22,6 +24,7 @@ application.get('/',(req,res)=>{
 application.use('/register',registrationRouter)
 application.use('/login',logInRoutes)
 application.use('/profile',profileRoute)
+application.use('/signout',verificationOfToken,logOutRoute)
 
 application.listen(port,()=>{
     console.log('====================================');
